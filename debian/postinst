@@ -1,0 +1,41 @@
+#!/bin/bash
+
+HOSTNAME=$(hostname -f)
+
+TMP="/usr/share/yunohost/yunohost-config/postfix"
+
+function randpass() {
+  [ "$2" == "0" ] && CHAR="[:alnum:]" || CHAR="[:graph:]"
+    cat /dev/urandom | tr -cd "$CHAR" | head -c ${1:-32}
+    echo
+}
+
+
+if [ -f /etc/yunohost/current_host ];
+then
+        DOMAIN=$(cat /etc/yunohost/current_host)
+        find $TMP -type f -exec sed -i "s/yunohost.org/$DOMAIN/g" {} \;
+fi
+
+#Postfix
+IPADD=`/sbin/ifconfig | sed '/Bcast/!d' | awk '{print $2}'| awk '{print $2}' FS=":"`
+#sed -i '/IPADD/'$IPADD'/g' $TMP/postfix/main.cf
+if [ ! -f /etc/yunohost/yunohost.conf ] || [ $(grep postfix /etc/yunohost/yunohost.conf | cut -d= -f2) = "no" ];
+then 
+	cp $TMP/{main.cf,master.cf,main.cf-ipv4,smtp_reply_filter} /etc/postfix/
+	if [ ! -f /proc/net/if_inet6 ];
+        then
+               	mv /etc/postfix/main.cf-ipv4 /etc/postfix/main.cf
+	fi
+	cp $TMP/ldap* /etc/postfix
+	cp $TMP/sender_canonical /etc/postfix
+	cp $TMP/header_checks /etc/postfix
+        postmap /etc/postfix/header_checks
+	cp $TMP/postgrey /etc/default/
+	if [ -f /var/run/postgrey.pid ];
+	then
+		kill $(cat /var/run/postgrey.pid) > /dev/null 2>&1
+	fi	
+	service postgrey restart > /dev/null 2>&1
+	service postfix reload > /dev/null 2>&1
+fi
