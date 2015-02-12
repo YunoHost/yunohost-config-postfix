@@ -1,3 +1,16 @@
+yunohost-config-postfix (2.1.2) testing; urgency=low
+
+  [ Jérôme Lebleu ]
+  * [enh] Enable Postfix on submission port and update TLS related conf
+
+  [ Julien Malik ]
+  * [enh] never enough comments
+
+  [ kload ]
+  * [enh] Replace the 'sbl-xbl.spamhaus.org' spamlist with 'zen.spamhaus.org'
+
+ -- kload <kload@kload.fr>  Thu, 12 Feb 2015 15:22:55 +0100
+
 yunohost-config-postfix (2.1.1) testing; urgency=low
 
   * Bump version to 2.1.1 to bootstrap new build workflow
