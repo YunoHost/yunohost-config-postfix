@@ -34,6 +34,7 @@ smtpd_tls_CAfile = /etc/ssl/certs/ca-yunohost_crt.pem
 smtpd_tls_exclude_ciphers = aNULL, MD5, DES, ADH
 smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
 smtpd_tls_loglevel=1
+smtpd_tls_mandatory_protocols=!SSLv2,!SSLv3
 
 # -- TLS for outgoing connections
 # Use TLS if this is supported by the remote SMTP server, otherwise use plaintext.
