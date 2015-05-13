@@ -1,3 +1,9 @@
+yunohost-config-postfix (2.2.2) stable; urgency=low
+
+  * stable release
+
+ -- Julien Malik <julien.malik@paraiso.me>  Wed, 13 May 2015 11:13:00 +0200
+
 yunohost-config-postfix (2.2.1) testing; urgency=low
 
   * [enh] increase message size limit to 25 MB
