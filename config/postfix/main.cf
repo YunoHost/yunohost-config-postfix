@@ -58,8 +58,8 @@ mailbox_size_limit = 0
 recipient_delimiter = +
 inet_interfaces = all
 
-#### add yunohost ####
-message_size_limit = 10240000
+#### Fit to the maximum message size allowed by GMail or Yahoo ####
+message_size_limit = 26214400
 
 # Virtual Domains Control 
 virtual_mailbox_domains = ldap:/etc/postfix/ldap-domains.cf 
