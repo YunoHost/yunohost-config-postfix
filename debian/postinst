@@ -4,13 +4,6 @@ HOSTNAME=$(hostname -f)
 
 TMP="/usr/share/yunohost/yunohost-config/postfix"
 
-function randpass() {
-  [ "$2" == "0" ] && CHAR="[:alnum:]" || CHAR="[:graph:]"
-    cat /dev/urandom | tr -cd "$CHAR" | head -c ${1:-32}
-    echo
-}
-
-
 if [ -f /etc/yunohost/current_host ];
 then
         DOMAIN=$(cat /etc/yunohost/current_host)
